@@ -10,23 +10,15 @@ A full-stack personal finance application with AI-powered insights.
 - 🤖 AI financial assistant
 - 🔐 Secure authentication with Google OAuth
 
-## 📸 UI Screenshots
-
-Here are some screenshots of the app interface:
 
 
-![UI 1](./screenshots/ui.png)
-
-![UI 1](./screenshots/ui1.png)
-
-
-![UI 2](./screenshots/ui2.png)
-
-
-![UI 3](./screenshots/ui3.png)
+<div align="center">
+  <img src="./screenshots/ui1.png" alt="UI 1" width="300"/>
+  <img src="./screenshots/ui2.png" alt="UI 2" width="300"/>
+  <img src="./screenshots/ui3.png" alt="UI 3" width="300"/>
+  <img src="./screenshots/ui4.png" alt="UI 4" width="300"/>
+  <img src="./screenshots/ui5.png" alt="UI 5" width="300"/>
+</div>
 
 
-![UI 4](./screenshots/ui4.png)
-
-![UI 5](./screenshots/ui5.png)
-
+(the project is not fully done yet, more features will be added...)
