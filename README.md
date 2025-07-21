@@ -13,7 +13,7 @@ A full-stack personal finance application with AI-powered insights.
 
 
 <div align="center">
-  <img src="./screenshots/ui1.png" width="300"/>
+  <img src="./screenshots/landing.png" width="300"/>
   <img src="./screenshots/ui2.png" width="300"/>
   <img src="./screenshots/ui3.png" width="300"/>
   <img src="./screenshots/ui4.png" width="300"/>
