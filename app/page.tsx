@@ -206,7 +206,7 @@ export default function Home() {
 
         {/* Navigation */}
         <nav className="relative z-10 flex items-center justify-between p-4 md:p-8 max-w-7xl mx-auto">
-          <span className="font-semibold text-2xl tracking-tight text-white" style={{ fontFamily: 'Montserrat, sans-serif', letterSpacing: '-0.02em', fontWeight: 500 }}>Tadbir</span>
+          <span className="font-extrabold text-4xl tracking-tight text-white" style={{ fontFamily: 'Montserrat, sans-serif', letterSpacing: '-0.02em', fontWeight: 800 }}>Tadbir</span>
           <div className="hidden md:flex items-center space-x-8">
             <a href="#features" className="text-gray-300 hover:text-white transition-colors">{t.navFeatures}</a>
             <a href="#pricing" className="text-gray-300 hover:text-white transition-colors">{t.navPricing}</a>
@@ -236,7 +236,7 @@ export default function Home() {
           <Sheet open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>
             <SheetContent side="left" className="bg-slate-900/95 p-0 w-64">
               <div className="flex flex-col gap-6 p-6">
-                <span className="font-semibold text-2xl tracking-tight text-white mb-4" style={{ fontFamily: 'Montserrat, sans-serif', letterSpacing: '-0.02em', fontWeight: 500 }}>Tadbir</span>
+                <span className="font-extrabold text-4xl tracking-tight text-white mb-4" style={{ fontFamily: 'Montserrat, sans-serif', letterSpacing: '-0.02em', fontWeight: 800 }}>Tadbir</span>
                 <a href="#features" className="text-gray-200 hover:text-emerald-400 text-lg transition-colors" onClick={() => setMobileMenuOpen(false)}>{t.navFeatures}</a>
                 <a href="#pricing" className="text-gray-200 hover:text-emerald-400 text-lg transition-colors" onClick={() => setMobileMenuOpen(false)}>{t.navPricing}</a>
                 <a href="#about" className="text-gray-200 hover:text-emerald-400 text-lg transition-colors" onClick={() => setMobileMenuOpen(false)}>{t.navAbout}</a>
