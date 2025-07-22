@@ -24,6 +24,7 @@ export function AIChat() {
   const [showUpgrade, setShowUpgrade] = useState(false)
   const [generatingReport, setGeneratingReport] = useState(false)
   const [lastReport, setLastReport] = useState<string | null>(null)
+  const [showOnboarding, setShowOnboarding] = useState(false)
 
   const { messages, input, handleInputChange, handleSubmit, isLoading, error, setMessages } = useChat({
     api: "/api/chat",
@@ -51,6 +52,20 @@ export function AIChat() {
   useEffect(() => {
     if (isOpen) {
       fetchAIUsage()
+    }
+  }, [isOpen])
+
+  // Onboarding animation: show only once after first login
+  useEffect(() => {
+    if (typeof window !== 'undefined' && !isOpen) {
+      const seen = localStorage.getItem('tadbir-ai-onboarding')
+      if (!seen) {
+        setShowOnboarding(true)
+        setTimeout(() => {
+          setShowOnboarding(false)
+          localStorage.setItem('tadbir-ai-onboarding', '1')
+        }, 3500)
+      }
     }
   }, [isOpen])
 
@@ -146,11 +161,24 @@ export function AIChat() {
       <div className="fixed bottom-4 right-4 z-50">
         <Button
           onClick={() => setIsOpen(true)}
-          className="rounded-full h-14 w-14 shadow-lg"
+          className={`rounded-full h-14 w-14 shadow-lg relative transition-all duration-500 ${showOnboarding ? 'ring-4 ring-emerald-400 scale-110' : ''}`}
           style={{ backgroundColor: "#87ceeb" }}
         >
           <Bot className="h-6 w-6" />
+          {showOnboarding && (
+            <span className="absolute -top-16 left-1/2 -translate-x-1/2 bg-emerald-500 text-white text-xs px-4 py-2 rounded-lg shadow-lg animate-fade-in-out pointer-events-none" style={{ animation: 'fadeInOut 3.5s' }}>
+              Try the AI Assistant! Ask questions or get a tour.
+            </span>
+          )}
         </Button>
+        <style>{`
+          @keyframes fadeInOut {
+            0% { opacity: 0; transform: translateY(10px) scale(0.95); }
+            10% { opacity: 1; transform: translateY(0) scale(1); }
+            90% { opacity: 1; transform: translateY(0) scale(1); }
+            100% { opacity: 0; transform: translateY(-10px) scale(0.95); }
+          }
+        `}</style>
       </div>
     )
   }

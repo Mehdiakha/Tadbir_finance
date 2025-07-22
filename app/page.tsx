@@ -13,9 +13,10 @@ import { SavingsGoals } from "@/components/savings-goals"
 import { AIChat } from "@/components/ai-chat"
 import { AppSidebar } from "@/components/app-sidebar"
 import { PremiumSection } from "@/components/premium-section"
-import { DollarSign, TrendingUp, Target, PieChart, Crown } from "lucide-react"
+import { DollarSign, TrendingUp, Target, PieChart, Crown, Menu } from "lucide-react"
 import { useRouter } from "next/navigation"
 import { SidebarInset, SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar"
+import { Sheet, SheetContent } from "@/components/ui/sheet"
 
 interface Expense {
   id: string
@@ -60,6 +61,7 @@ export default function Home() {
   const [activeTab, setActiveTab] = useState("dashboard")
   const router = useRouter()
   const [language, setLanguage] = useState<'en' | 'fr'>('en')
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
   // Texts for EN/FR
   const t = {
@@ -192,7 +194,9 @@ export default function Home() {
 
   if (!session) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-emerald-900 relative overflow-hidden">
+      <div className="min-h-screen bg-gradient-to-br from-[#0f2027] via-[#2c5364] to-[#00c6fb] relative overflow-hidden">
+        {/* Noise overlay */}
+        <div className="pointer-events-none fixed inset-0 z-0 opacity-30 mix-blend-soft-light" style={{ backgroundImage: 'url("https://www.transparenttextures.com/patterns/noise.png")', backgroundRepeat: 'repeat' }} />
         {/* Background decorative elements */}
         <div className="absolute inset-0">
           <div className="absolute top-20 left-10 w-72 h-72 bg-emerald-500/10 rounded-full blur-3xl"></div>
@@ -201,29 +205,58 @@ export default function Home() {
         </div>
 
         {/* Navigation */}
-        <nav className="relative z-10 flex items-center justify-between p-8 max-w-7xl mx-auto">
+        <nav className="relative z-10 flex items-center justify-between p-4 md:p-8 max-w-7xl mx-auto">
           <span className="font-semibold text-2xl tracking-tight text-white" style={{ fontFamily: 'Montserrat, sans-serif', letterSpacing: '-0.02em', fontWeight: 500 }}>Tadbir</span>
           <div className="hidden md:flex items-center space-x-8">
             <a href="#features" className="text-gray-300 hover:text-white transition-colors">{t.navFeatures}</a>
             <a href="#pricing" className="text-gray-300 hover:text-white transition-colors">{t.navPricing}</a>
             <a href="#about" className="text-gray-300 hover:text-white transition-colors">{t.navAbout}</a>
           </div>
-          <div className="flex items-center space-x-4">
-            <button onClick={() => setLanguage(language === 'en' ? 'fr' : 'en')} className="text-gray-300 hover:text-white px-3 py-1 rounded transition-colors border border-gray-600 bg-slate-800/60 text-sm font-semibold">{language === 'en' ? 'FR' : 'EN'}</button>
+          <div className="flex items-center space-x-2 md:space-x-4">
+            <button onClick={() => setLanguage(language === 'en' ? 'fr' : 'en')} className="text-gray-300 hover:text-white px-3 py-1 rounded transition-colors border border-gray-600 bg-slate-800/60 text-sm font-semibold hidden md:inline-block">{language === 'en' ? 'FR' : 'EN'}</button>
             <Button
               variant="ghost"
               onClick={() => router.push("/auth/signin")}
-              className="text-gray-300 hover:text-white hover:bg-white/10"
+              className="text-gray-300 hover:text-white hover:bg-white/10 hidden md:inline-block"
             >
               {t.signIn}
             </Button>
             <Button
               onClick={() => router.push("/auth/signup")}
-              className="bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 text-white border-0 px-6"
+              className="bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 text-white border-0 px-6 hidden md:inline-block"
             >
               {t.getStarted}
             </Button>
+            {/* Hamburger menu for mobile */}
+            <button className="md:hidden p-2 rounded hover:bg-white/10 transition" onClick={() => setMobileMenuOpen(true)}>
+              <Menu className="h-7 w-7 text-white" />
+            </button>
           </div>
+          {/* Mobile menu drawer */}
+          <Sheet open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>
+            <SheetContent side="left" className="bg-slate-900/95 p-0 w-64">
+              <div className="flex flex-col gap-6 p-6">
+                <span className="font-semibold text-2xl tracking-tight text-white mb-4" style={{ fontFamily: 'Montserrat, sans-serif', letterSpacing: '-0.02em', fontWeight: 500 }}>Tadbir</span>
+                <a href="#features" className="text-gray-200 hover:text-emerald-400 text-lg transition-colors" onClick={() => setMobileMenuOpen(false)}>{t.navFeatures}</a>
+                <a href="#pricing" className="text-gray-200 hover:text-emerald-400 text-lg transition-colors" onClick={() => setMobileMenuOpen(false)}>{t.navPricing}</a>
+                <a href="#about" className="text-gray-200 hover:text-emerald-400 text-lg transition-colors" onClick={() => setMobileMenuOpen(false)}>{t.navAbout}</a>
+                <button onClick={() => { setLanguage(language === 'en' ? 'fr' : 'en'); setMobileMenuOpen(false) }} className="text-gray-200 hover:text-emerald-400 text-lg transition-colors text-left">{language === 'en' ? 'FR' : 'EN'}</button>
+                <Button
+                  variant="ghost"
+                  onClick={() => { router.push("/auth/signin"); setMobileMenuOpen(false) }}
+                  className="text-gray-200 hover:text-white hover:bg-white/10 w-full justify-start"
+                >
+                  {t.signIn}
+                </Button>
+                <Button
+                  onClick={() => { router.push("/auth/signup"); setMobileMenuOpen(false) }}
+                  className="bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 text-white border-0 w-full justify-start"
+                >
+                  {t.getStarted}
+                </Button>
+              </div>
+            </SheetContent>
+          </Sheet>
         </nav>
 
         {/* Hero Section */}
@@ -385,12 +418,12 @@ export default function Home() {
               <h3 className="text-2xl font-bold mb-2 text-emerald-700">{t.free}</h3>
               <div className="text-4xl font-extrabold text-emerald-500 mb-4">$0</div>
               <ul className="text-gray-700 mb-10 space-y-3 text-left w-full max-w-xs mx-auto text-base">
-                <li>✔️ Track unlimited expenses</li>
-                <li>✔️ Set monthly budgets</li>
-                <li>✔️ Basic analytics dashboard</li>
-                <li>✔️ Up to 3 savings goals</li>
-                <li>✔️ Email support</li>
-                <li>✔️ Export data (CSV)</li>
+                <li>✔️ {language === 'fr' ? 'Suivi illimité des dépenses' : 'Track unlimited expenses'}</li>
+                <li>✔️ {language === 'fr' ? 'Budgets mensuels' : 'Set monthly budgets'}</li>
+                <li>✔️ {language === 'fr' ? 'Tableau de bord analytique basique' : 'Basic analytics dashboard'}</li>
+                <li>✔️ {language === 'fr' ? 'Jusqu’à 3 objectifs d’épargne' : 'Up to 3 savings goals'}</li>
+                <li>✔️ {language === 'fr' ? 'Support par email' : 'Email support'}</li>
+                <li>✔️ {language === 'fr' ? 'Exportation des données (CSV)' : 'Export data (CSV)'}</li>
               </ul>
               <Button onClick={() => router.push("/auth/signup")} className="w-full bg-emerald-500 text-white font-semibold rounded-full">{t.getStartedBtn}</Button>
             </div>
@@ -400,14 +433,14 @@ export default function Home() {
               <h3 className="text-2xl font-bold text-white mb-2">{t.premium}</h3>
               <div className="text-4xl font-extrabold text-white mb-4">$9<span className="text-lg font-medium">/mo</span></div>
               <ul className="text-white mb-10 space-y-3 text-left w-full max-w-xs mx-auto text-base">
-                <li>✔️ Everything in Free</li>
-                <li>✔️ Unlimited savings goals</li>
-                <li>✔️ Advanced analytics & custom reports</li>
-                <li>✔️ AI-powered financial insights</li>
-                <li>✔️ Smart receipt scanning</li>
-                <li>✔️ Multi-device sync</li>
-                <li>✔️ Priority email & chat support</li>
-                <li>✔️ Early access to new features</li>
+                <li>✔️ {language === 'fr' ? 'Tout dans Gratuit' : 'Everything in Free'}</li>
+                <li>✔️ {language === 'fr' ? 'Objectifs d’épargne illimités' : 'Unlimited savings goals'}</li>
+                <li>✔️ {language === 'fr' ? 'Analyses avancées & rapports personnalisés' : 'Advanced analytics & custom reports'}</li>
+                <li>✔️ {language === 'fr' ? 'Insights financiers IA' : 'AI-powered financial insights'}</li>
+                <li>✔️ {language === 'fr' ? 'Scan intelligent des reçus' : 'Smart receipt scanning'}</li>
+                <li>✔️ {language === 'fr' ? 'Synchronisation multi-appareils' : 'Multi-device sync'}</li>
+                <li>✔️ {language === 'fr' ? 'Support prioritaire email & chat' : 'Priority email & chat support'}</li>
+                <li>✔️ {language === 'fr' ? 'Accès anticipé aux nouveautés' : 'Early access to new features'}</li>
               </ul>
               <Button onClick={() => router.push("/auth/signup")} className="w-full bg-yellow-300 text-yellow-900 font-bold hover:bg-yellow-400 rounded-full">{t.upgrade}</Button>
             </div>
@@ -416,15 +449,15 @@ export default function Home() {
               <h3 className="text-2xl font-bold mb-2 text-emerald-800">{t.enterprise}</h3>
               <div className="text-4xl font-extrabold text-emerald-500 mb-4">$99<span className="text-lg font-medium">/mo</span></div>
               <ul className="text-gray-800 mb-10 space-y-3 text-left w-full max-w-xs mx-auto text-base">
-                <li>✔️ Everything in Premium</li>
-                <li>✔️ Team & role management</li>
-                <li>✔️ Dedicated account manager</li>
-                <li>✔️ Custom integrations (API, SSO, etc.)</li>
-                <li>✔️ SLA & onboarding assistance</li>
-                <li>✔️ Advanced security & compliance</li>
-                <li>✔️ Custom reporting & exports</li>
-                <li>✔️ Priority phone support</li>
-                <li>✔️ Quarterly business reviews</li>
+                <li>✔️ {language === 'fr' ? 'Tout dans Premium' : 'Everything in Premium'}</li>
+                <li>✔️ {language === 'fr' ? 'Gestion d’équipe & des rôles' : 'Team & role management'}</li>
+                <li>✔️ {language === 'fr' ? 'Gestionnaire de compte dédié' : 'Dedicated account manager'}</li>
+                <li>✔️ {language === 'fr' ? 'Intégrations personnalisées (API, SSO, etc.)' : 'Custom integrations (API, SSO, etc.)'}</li>
+                <li>✔️ {language === 'fr' ? 'SLA & accompagnement onboarding' : 'SLA & onboarding assistance'}</li>
+                <li>✔️ {language === 'fr' ? 'Sécurité & conformité avancées' : 'Advanced security & compliance'}</li>
+                <li>✔️ {language === 'fr' ? 'Rapports & exports personnalisés' : 'Custom reporting & exports'}</li>
+                <li>✔️ {language === 'fr' ? 'Support téléphonique prioritaire' : 'Priority phone support'}</li>
+                <li>✔️ {language === 'fr' ? 'Revue business trimestrielle' : 'Quarterly business reviews'}</li>
               </ul>
               <Button variant="outline" onClick={() => router.push("/auth/signup")} className="w-full border-emerald-500 text-emerald-700 font-semibold rounded-full">{t.contactSales}</Button>
             </div>
@@ -482,7 +515,7 @@ export default function Home() {
         <header className="flex h-16 shrink-0 items-center gap-2 border-b px-4">
           <SidebarTrigger className="-ml-1" />
           <div className="flex flex-1 items-center justify-between">
-            <h1 className="text-xl font-semibold">Finance Dashboard</h1>
+            <h1 className="text-xl font-semibold">{session?.user?.name ? `${session.user.name}'s Dashboard` : 'Dashboard'}</h1>
             <div className="flex items-center gap-4">
               {aiUsage?.isPremium && (
                 <Badge variant="secondary" className="bg-yellow-100 text-yellow-800">
