@@ -23,7 +23,7 @@ Secure authentication with Google OAuth
 <img src="./screenshots/ui4.png" width="200"/>
 
 # Tech Stack:
-- NextJS, TailwindCSS ,Neondb(serverless postgres), prisma(orm)
+- NextJS, TailwindCSS ,Neondb(postgres), prisma
 
 
 
