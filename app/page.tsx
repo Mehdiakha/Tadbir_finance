@@ -62,6 +62,13 @@ export default function Home() {
   const router = useRouter()
   const [language, setLanguage] = useState<'en' | 'fr'>('en')
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const [showLoading, setShowLoading] = useState(true)
+
+  useEffect(() => {
+    setShowLoading(true)
+    const timer = setTimeout(() => setShowLoading(false), 2000)
+    return () => clearTimeout(timer)
+  }, [])
 
   // Texts for EN/FR
   const t = {
@@ -181,13 +188,24 @@ export default function Home() {
     alert("Premium upgrade coming soon! This will integrate with Stripe for payments.")
   }
 
-  if (status === "loading") {
+  if (showLoading) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="text-center">
-          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary mx-auto mb-4"></div>
-          <p>Loading...</p>
+      <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-[#f8fafc] to-[#e0e7ef]">
+        <span className="font-extrabold text-4xl tracking-tight unbounded-logo mb-6" style={{ letterSpacing: '-0.02em', fontWeight: 700, color: '#222' }}>
+          <span style={{ color: '#10b981' }}>S</span>martBudget
+        </span>
+        <div className="w-64 h-2 bg-gray-200 rounded-full overflow-hidden shadow-inner">
+          <div className="h-full bg-gradient-to-r from-emerald-400 to-teal-400 animate-progress-bar" style={{ width: '100%' }}></div>
         </div>
+        <style>{`
+          @keyframes progressBar {
+            0% { width: 0; }
+            100% { width: 100%; }
+          }
+          .animate-progress-bar {
+            animation: progressBar 2s cubic-bezier(0.4,0,0.2,1) forwards;
+          }
+        `}</style>
       </div>
     )
   }
@@ -206,7 +224,7 @@ export default function Home() {
 
         {/* Navigation */}
         <nav className="relative z-10 flex items-center justify-between p-4 md:p-8 max-w-7xl mx-auto">
-          <span className="font-extrabold text-4xl tracking-tight text-white" style={{ fontFamily: 'Montserrat, sans-serif', letterSpacing: '-0.02em', fontWeight: 800 }}>SmartBudget</span>
+          <span className="font-extrabold text-3xl tracking-tight unbounded-logo" style={{ letterSpacing: '-0.02em', fontWeight: 700, color: '#fff' }}><span style={{ color: '#10b981' }}>S</span>martBudget</span>
           <div className="hidden md:flex items-center space-x-8">
             <a href="#features" className="text-gray-300 hover:text-white transition-colors">{t.navFeatures}</a>
             <a href="#pricing" className="text-gray-300 hover:text-white transition-colors">{t.navPricing}</a>
@@ -236,7 +254,7 @@ export default function Home() {
           <Sheet open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>
             <SheetContent side="left" className="bg-slate-900/95 p-0 w-64">
               <div className="flex flex-col gap-6 p-6">
-                <span className="font-extrabold text-4xl tracking-tight text-white mb-4" style={{ fontFamily: 'Montserrat, sans-serif', letterSpacing: '-0.02em', fontWeight: 800 }}>SmartBudget</span>
+                <span className="font-extrabold text-3xl tracking-tight text-white mb-4 unbounded-logo" style={{ letterSpacing: '-0.02em', fontWeight: 700 }}><span style={{ color: '#10b981' }}>S</span>martBudget</span>
                 <a href="#features" className="text-gray-200 hover:text-emerald-400 text-lg transition-colors" onClick={() => setMobileMenuOpen(false)}>{t.navFeatures}</a>
                 <a href="#pricing" className="text-gray-200 hover:text-emerald-400 text-lg transition-colors" onClick={() => setMobileMenuOpen(false)}>{t.navPricing}</a>
                 <a href="#about" className="text-gray-200 hover:text-emerald-400 text-lg transition-colors" onClick={() => setMobileMenuOpen(false)}>{t.navAbout}</a>
@@ -262,10 +280,10 @@ export default function Home() {
         {/* Hero Section */}
         <div className="relative z-10 max-w-3xl mx-auto px-6 pt-20 pb-20 flex flex-col items-center">
           <div className="w-full flex flex-col items-center text-center">
-            <h1 className="text-4xl md:text-5xl font-bold text-white leading-tight mb-4">
+            <h1 className="text-4xl md:text-5xl font-bold text-white leading-tight mb-4 poppins-regular">
               {t.heroTitle}
             </h1>
-            <p className="text-lg md:text-xl text-gray-300 leading-relaxed max-w-xl mx-auto mb-8">
+            <p className="text-lg md:text-xl text-gray-300 leading-relaxed max-w-xl mx-auto mb-8 poppins-extralight">
               {t.heroDesc}
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center mb-10">
