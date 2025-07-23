@@ -64,7 +64,7 @@ export function AppSidebar({ aiUsage, activeTab, onTabChange, ...props }: AppSid
     <Sidebar {...props}>
       <SidebarHeader className="border-b border-sidebar-border">
         <div className="flex items-center gap-2 px-4 py-2">
-          <span className="font-semibold text-lg">Tadbir</span>
+          <span className="font-semibold text-lg">SmartBudget</span>
         </div>
         {session?.user && (
           <div className="px-4 pb-2">

@@ -206,7 +206,7 @@ export default function Home() {
 
         {/* Navigation */}
         <nav className="relative z-10 flex items-center justify-between p-4 md:p-8 max-w-7xl mx-auto">
-          <span className="font-extrabold text-4xl tracking-tight text-white" style={{ fontFamily: 'Montserrat, sans-serif', letterSpacing: '-0.02em', fontWeight: 800 }}>Tadbir</span>
+          <span className="font-extrabold text-4xl tracking-tight text-white" style={{ fontFamily: 'Montserrat, sans-serif', letterSpacing: '-0.02em', fontWeight: 800 }}>SmartBudget</span>
           <div className="hidden md:flex items-center space-x-8">
             <a href="#features" className="text-gray-300 hover:text-white transition-colors">{t.navFeatures}</a>
             <a href="#pricing" className="text-gray-300 hover:text-white transition-colors">{t.navPricing}</a>
@@ -236,7 +236,7 @@ export default function Home() {
           <Sheet open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>
             <SheetContent side="left" className="bg-slate-900/95 p-0 w-64">
               <div className="flex flex-col gap-6 p-6">
-                <span className="font-extrabold text-4xl tracking-tight text-white mb-4" style={{ fontFamily: 'Montserrat, sans-serif', letterSpacing: '-0.02em', fontWeight: 800 }}>Tadbir</span>
+                <span className="font-extrabold text-4xl tracking-tight text-white mb-4" style={{ fontFamily: 'Montserrat, sans-serif', letterSpacing: '-0.02em', fontWeight: 800 }}>SmartBudget</span>
                 <a href="#features" className="text-gray-200 hover:text-emerald-400 text-lg transition-colors" onClick={() => setMobileMenuOpen(false)}>{t.navFeatures}</a>
                 <a href="#pricing" className="text-gray-200 hover:text-emerald-400 text-lg transition-colors" onClick={() => setMobileMenuOpen(false)}>{t.navPricing}</a>
                 <a href="#about" className="text-gray-200 hover:text-emerald-400 text-lg transition-colors" onClick={() => setMobileMenuOpen(false)}>{t.navAbout}</a>
@@ -314,7 +314,7 @@ export default function Home() {
                       <div className="w-3 h-3 bg-green-400 rounded-full"></div>
                     </div>
                     <div className="flex-1 bg-white rounded px-3 py-1 text-xs text-gray-500">
-                      tadbir.app/dashboard
+                      smartbudget.app/dashboard
                     </div>
                   </div>
                   {/* Dashboard content */}
@@ -416,7 +416,7 @@ export default function Home() {
             {/* Free Plan */}
             <div className="bg-white/95 rounded-2xl shadow-lg p-10 flex flex-col items-center border border-gray-300 min-h-[440px] transition-all duration-300 hover:shadow-2xl">
               <h3 className="text-2xl font-bold mb-2 text-emerald-700">{t.free}</h3>
-              <div className="text-4xl font-extrabold text-emerald-500 mb-4">$0</div>
+              <div className="text-4xl font-extrabold text-emerald-500 mb-4">0 MAD</div>
               <ul className="text-gray-700 mb-10 space-y-3 text-left w-full max-w-xs mx-auto text-base">
                 <li>✔️ {language === 'fr' ? 'Suivi illimité des dépenses' : 'Track unlimited expenses'}</li>
                 <li>✔️ {language === 'fr' ? 'Budgets mensuels' : 'Set monthly budgets'}</li>
@@ -431,7 +431,19 @@ export default function Home() {
             <div className="bg-gradient-to-br from-emerald-600 to-teal-500 rounded-2xl shadow-2xl p-12 flex flex-col items-center border-4 border-yellow-300 min-h-[480px] relative scale-105 z-10 transition-all duration-300 hover:shadow-emerald-400/30">
               <span className="absolute -top-4 left-1/2 -translate-x-1/2 bg-yellow-300 text-yellow-900 px-4 py-1 rounded-full font-semibold text-xs">{t.mostPopular}</span>
               <h3 className="text-2xl font-bold text-white mb-2">{t.premium}</h3>
-              <div className="text-4xl font-extrabold text-white mb-4">$9<span className="text-lg font-medium">/mo</span></div>
+              <div className="flex flex-col items-center mb-4">
+                {language === 'fr' ? (
+                  <>
+                    <span className="text-4xl font-extrabold text-white">29 MAD<span className="text-lg font-medium">/mois</span></span>
+                    <span className="text-xl font-semibold text-white mt-1">ou 300 MAD/an</span>
+                  </>
+                ) : (
+                  <>
+                    <span className="text-4xl font-extrabold text-white">29 MAD<span className="text-lg font-medium">/month</span></span>
+                    <span className="text-xl font-semibold text-white mt-1">or 300 MAD/year</span>
+                  </>
+                )}
+              </div>
               <ul className="text-white mb-10 space-y-3 text-left w-full max-w-xs mx-auto text-base">
                 <li>✔️ {language === 'fr' ? 'Tout dans Gratuit' : 'Everything in Free'}</li>
                 <li>✔️ {language === 'fr' ? 'Objectifs d’épargne illimités' : 'Unlimited savings goals'}</li>
@@ -447,7 +459,7 @@ export default function Home() {
             {/* Enterprise Plan */}
             <div className="bg-white/95 rounded-2xl shadow-lg p-12 flex flex-col items-center border-2 border-emerald-500 min-h-[480px] transition-all duration-300 hover:shadow-2xl">
               <h3 className="text-2xl font-bold mb-2 text-emerald-800">{t.enterprise}</h3>
-              <div className="text-4xl font-extrabold text-emerald-500 mb-4">$99<span className="text-lg font-medium">/mo</span></div>
+              <div className="text-4xl font-extrabold text-emerald-500 mb-4">990 MAD<span className="text-lg font-medium">/mo</span></div>
               <ul className="text-gray-800 mb-10 space-y-3 text-left w-full max-w-xs mx-auto text-base">
                 <li>✔️ {language === 'fr' ? 'Tout dans Premium' : 'Everything in Premium'}</li>
                 <li>✔️ {language === 'fr' ? 'Gestion d’équipe & des rôles' : 'Team & role management'}</li>
@@ -467,14 +479,14 @@ export default function Home() {
         <section id="contact" className="relative z-10 max-w-2xl mx-auto px-6 pb-32 mt-24">
           <h2 className="text-3xl font-bold text-center text-white mb-6">{t.contactUs}</h2>
           <div className="text-center text-lg text-white bg-white/10 rounded-xl p-8 shadow-md border border-emerald-200">
-            Contact us at <a href="mailto:tadbirbusiness@gmail.com" className="text-emerald-400 underline hover:text-emerald-300 transition-colors">tadbirbusiness@gmail.com</a>
+            Contact us at <a href="mailto:smartbudgetbusiness@gmail.com" className="text-emerald-400 underline hover:text-emerald-300 transition-colors">smartbudgetbusiness@gmail.com</a>
           </div>
         </section>
 
         {/* Footer with company logos */}
         <footer className="relative z-10 w-full bg-slate-900/80 py-8 mt-8 border-t border-slate-800">
           <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-6">
-            <div className="text-gray-400 text-sm text-center md:text-left mb-2 md:mb-0">&copy; {new Date().getFullYear()} Tadbir. All rights reserved.</div>
+            <div className="text-gray-400 text-sm text-center md:text-left mb-2 md:mb-0">&copy; {new Date().getFullYear()} SmartBudget. All rights reserved.</div>
             <div className="flex justify-center items-center space-x-8 opacity-50">
               <span className="text-gray-400 font-semibold">Trusted by teams at</span>
               <span className="text-gray-400 font-semibold">Spotify</span>

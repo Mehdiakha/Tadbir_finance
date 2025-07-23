@@ -48,7 +48,7 @@ export function PremiumUpgrade({ currentUsage = 0, limit = 20, onUpgrade }: Prem
         </div>
 
         <div className="text-center pt-4">
-          <div className="text-2xl font-bold text-yellow-800 mb-2">$9.99/month</div>
+          <div className="text-2xl font-bold text-yellow-800 mb-2">29 MAD/month or 300 MAD/year</div>
           <Button onClick={onUpgrade} className="w-full bg-yellow-600 hover:bg-yellow-700">
             <Crown className="h-4 w-4 mr-2" />
             Upgrade to Premium

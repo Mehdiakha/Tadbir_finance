@@ -134,8 +134,9 @@ export function PremiumSection({ aiUsage, onUpgrade }: PremiumSectionProps) {
         <div className="text-center space-y-4">
           <div className="space-y-1">
             <div className="flex items-center justify-center gap-2">
-              <span className="text-3xl font-bold text-gray-900">$9.99</span>
+              <span className="text-3xl font-bold text-gray-900">29 MAD</span>
               <span className="text-lg text-muted-foreground">/month</span>
+              <span className="text-3xl font-bold text-gray-900">or 300 MAD/year</span>
             </div>
             <p className="text-sm text-muted-foreground">Cancel anytime • 30-day money-back guarantee</p>
           </div>
